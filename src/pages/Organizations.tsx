@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Plus, Folder, ChevronRight, ChevronDown } from "lucide-react";
+import { Plus, Folder, Wrench, Scissors } from "lucide-react";
 import { Organization } from "@/types/organizations";
 import {
   Accordion,
@@ -21,7 +21,7 @@ import {
 const mockOrganizations: Organization[] = [
   {
     id: 1,
-    name: "Mowing Services",
+    name: "Jim's Business",
     type: "Folder",
     employees: 0,
     status: "active",
@@ -29,23 +29,25 @@ const mockOrganizations: Organization[] = [
   },
   {
     id: 2,
-    name: "Sydney West Mowing",
-    type: "LLC",
-    employees: 15,
+    name: "Mowing Services",
+    type: "Service",
+    employees: 3,
     status: "active",
     parentId: 1,
+    serviceType: "mowing"
   },
   {
     id: 3,
-    name: "Eastern Suburbs Mowing",
-    type: "LLC",
-    employees: 12,
+    name: "Handyman Services",
+    type: "Service",
+    employees: 2,
     status: "active",
     parentId: 1,
+    serviceType: "handyman"
   },
   {
     id: 4,
-    name: "Cleaning Services",
+    name: "My Weekend Business",
     type: "Folder",
     employees: 0,
     status: "active",
@@ -53,11 +55,12 @@ const mockOrganizations: Organization[] = [
   },
   {
     id: 5,
-    name: "City Cleaners",
-    type: "Corporation",
-    employees: 45,
+    name: "Personal Mowing",
+    type: "Service",
+    employees: 1,
     status: "active",
     parentId: 4,
+    serviceType: "mowing"
   },
 ];
 
@@ -69,6 +72,17 @@ const Organizations = () => {
   const getOrganizationsInFolder = (folderId: number) => 
     organizations.filter((org) => org.parentId === folderId);
 
+  const getServiceIcon = (serviceType?: string) => {
+    switch (serviceType) {
+      case 'mowing':
+        return <Scissors className="h-4 w-4 mr-2" />;
+      case 'handyman':
+        return <Wrench className="h-4 w-4 mr-2" />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="container mx-auto p-6">
       <div className="flex justify-between items-center mb-6">
@@ -76,11 +90,11 @@ const Organizations = () => {
         <div className="space-x-2">
           <Button variant="outline">
             <Folder className="h-4 w-4 mr-2" />
-            New Folder
+            New Organization
           </Button>
           <Button>
             <Plus className="h-4 w-4 mr-2" />
-            Add Organization
+            Add Service
           </Button>
         </div>
       </div>
@@ -103,17 +117,22 @@ const Organizations = () => {
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>Name</TableHead>
+                        <TableHead>Service</TableHead>
                         <TableHead>Type</TableHead>
-                        <TableHead>Employees</TableHead>
+                        <TableHead>Team Members</TableHead>
                         <TableHead>Status</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {getOrganizationsInFolder(folder.id).map((org) => (
                         <TableRow key={org.id}>
-                          <TableCell className="font-medium">{org.name}</TableCell>
-                          <TableCell>{org.type}</TableCell>
+                          <TableCell className="font-medium">
+                            <div className="flex items-center">
+                              {getServiceIcon(org.serviceType)}
+                              {org.name}
+                            </div>
+                          </TableCell>
+                          <TableCell>{org.serviceType}</TableCell>
                           <TableCell>{org.employees}</TableCell>
                           <TableCell>
                             <span
@@ -134,42 +153,6 @@ const Organizations = () => {
               </AccordionItem>
             ))}
           </Accordion>
-
-          <div className="mt-6">
-            <h3 className="text-sm font-medium text-muted-foreground mb-4">Unorganized</h3>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Type</TableHead>
-                  <TableHead>Employees</TableHead>
-                  <TableHead>Status</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {organizations
-                  .filter((org) => !org.isFolder && !org.parentId)
-                  .map((org) => (
-                    <TableRow key={org.id}>
-                      <TableCell className="font-medium">{org.name}</TableCell>
-                      <TableCell>{org.type}</TableCell>
-                      <TableCell>{org.employees}</TableCell>
-                      <TableCell>
-                        <span
-                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                            org.status === "active"
-                              ? "bg-green-100 text-green-800"
-                              : "bg-gray-100 text-gray-800"
-                          }`}
-                        >
-                          {org.status}
-                        </span>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </Table>
-          </div>
         </CardContent>
       </Card>
     </div>
