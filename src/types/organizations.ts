@@ -5,11 +5,11 @@ export interface Organization {
   status: "active" | "inactive";
   country: string;
   isCashOnly: boolean;
-  // Country specific fields
-  vatNumber?: string; // EU countries
-  abn?: string; // Australia
-  ein?: string; // USA
-  gstin?: string; // India
+  // Country specific fields - all optional
+  vatNumber: string | null;
+  abn: string | null;
+  ein: string | null;
+  gstin: string | null;
 }
 
 export interface Job {

@@ -6,7 +6,10 @@ export const mockOrganizations = [
     status: "active",
     country: "USA",
     isCashOnly: false,
-    ein: "12-3456789"
+    ein: "12-3456789",
+    vatNumber: null,
+    abn: null,
+    gstin: null
   },
   {
     id: 2,
@@ -14,7 +17,11 @@ export const mockOrganizations = [
     employees: 1,
     status: "active",
     country: "Australia",
-    isCashOnly: true
+    isCashOnly: true,
+    ein: null,
+    vatNumber: null,
+    abn: null,
+    gstin: null
   },
 ];
 
