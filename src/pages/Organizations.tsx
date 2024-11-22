@@ -12,6 +12,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { mockOrganizations } from "@/data/mockData";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { OrganizationForm } from "@/components/OrganizationForm";
 
 const Organizations = () => {
   const [organizations] = useState(mockOrganizations);
@@ -21,10 +29,20 @@ const Organizations = () => {
     <div className="container mx-auto p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-4xl font-bold">Organizations</h1>
-        <Button>
-          <Plus className="h-4 w-4 mr-2" />
-          New Organization
-        </Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button>
+              <Plus className="h-4 w-4 mr-2" />
+              New Organization
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[600px]">
+            <DialogHeader>
+              <DialogTitle>Create New Organization</DialogTitle>
+            </DialogHeader>
+            <OrganizationForm />
+          </DialogContent>
+        </Dialog>
       </div>
 
       <Card>
@@ -37,6 +55,8 @@ const Organizations = () => {
               <TableRow>
                 <TableHead>Organization</TableHead>
                 <TableHead>Team Members</TableHead>
+                <TableHead>Country</TableHead>
+                <TableHead>Type</TableHead>
                 <TableHead>Status</TableHead>
               </TableRow>
             </TableHeader>
@@ -49,6 +69,8 @@ const Organizations = () => {
                 >
                   <TableCell className="font-medium">{org.name}</TableCell>
                   <TableCell>{org.employees}</TableCell>
+                  <TableCell>{org.country}</TableCell>
+                  <TableCell>{org.isCashOnly ? "Cash Only" : "Regular"}</TableCell>
                   <TableCell>
                     <span
                       className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${

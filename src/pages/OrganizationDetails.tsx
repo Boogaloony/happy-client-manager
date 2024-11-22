@@ -25,8 +25,38 @@ const OrganizationDetails = () => {
               <span className="font-medium">Employees:</span> {organization.employees}
             </div>
             <div>
+              <span className="font-medium">Country:</span> {organization.country}
+            </div>
+            <div>
+              <span className="font-medium">Type:</span> {organization.isCashOnly ? "Cash Only" : "Regular"}
+            </div>
+            <div>
               <span className="font-medium">Status:</span> {organization.status}
             </div>
+            {!organization.isCashOnly && (
+              <>
+                {organization.vatNumber && (
+                  <div>
+                    <span className="font-medium">VAT Number:</span> {organization.vatNumber}
+                  </div>
+                )}
+                {organization.abn && (
+                  <div>
+                    <span className="font-medium">ABN:</span> {organization.abn}
+                  </div>
+                )}
+                {organization.ein && (
+                  <div>
+                    <span className="font-medium">EIN:</span> {organization.ein}
+                  </div>
+                )}
+                {organization.gstin && (
+                  <div>
+                    <span className="font-medium">GSTIN:</span> {organization.gstin}
+                  </div>
+                )}
+              </>
+            )}
           </div>
         </CardContent>
       </Card>

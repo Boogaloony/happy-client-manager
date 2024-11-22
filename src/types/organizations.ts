@@ -3,6 +3,13 @@ export interface Organization {
   name: string;
   employees: number;
   status: "active" | "inactive";
+  country: string;
+  isCashOnly: boolean;
+  // Country specific fields
+  vatNumber?: string; // EU countries
+  abn?: string; // Australia
+  ein?: string; // USA
+  gstin?: string; // India
 }
 
 export interface Job {
