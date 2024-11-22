@@ -9,14 +9,19 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Plus, Folder, Wrench, Scissors } from "lucide-react";
-import { Organization } from "@/types/organizations";
+import { Plus, Folder, Wrench, Scissors, MapPin } from "lucide-react";
+import { Organization, Area } from "@/types/organizations";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 const mockOrganizations: Organization[] = [
   {
@@ -34,7 +39,12 @@ const mockOrganizations: Organization[] = [
     employees: 3,
     status: "active",
     parentId: 1,
-    serviceType: "mowing"
+    serviceType: "mowing",
+    areas: [
+      { id: 1, name: "North Region", organizationId: 2, serviceType: "mowing" },
+      { id: 2, name: "South Region", organizationId: 2, serviceType: "mowing" },
+      { id: 3, name: "East Region", organizationId: 2, serviceType: "mowing" },
+    ],
   },
   {
     id: 3,
@@ -43,7 +53,11 @@ const mockOrganizations: Organization[] = [
     employees: 2,
     status: "active",
     parentId: 1,
-    serviceType: "handyman"
+    serviceType: "handyman",
+    areas: [
+      { id: 4, name: "Central Region", organizationId: 3, serviceType: "handyman" },
+      { id: 5, name: "West Region", organizationId: 3, serviceType: "handyman" },
+    ],
   },
   {
     id: 4,
@@ -60,7 +74,10 @@ const mockOrganizations: Organization[] = [
     employees: 1,
     status: "active",
     parentId: 4,
-    serviceType: "mowing"
+    serviceType: "mowing",
+    areas: [
+      { id: 6, name: "Local Area", organizationId: 5, serviceType: "mowing" },
+    ],
   },
 ];
 
@@ -119,6 +136,7 @@ const Organizations = () => {
                       <TableRow>
                         <TableHead>Service</TableHead>
                         <TableHead>Type</TableHead>
+                        <TableHead>Areas</TableHead>
                         <TableHead>Team Members</TableHead>
                         <TableHead>Status</TableHead>
                       </TableRow>
@@ -133,6 +151,26 @@ const Organizations = () => {
                             </div>
                           </TableCell>
                           <TableCell>{org.serviceType}</TableCell>
+                          <TableCell>
+                            <Collapsible>
+                              <CollapsibleTrigger asChild>
+                                <Button variant="ghost" size="sm">
+                                  <MapPin className="h-4 w-4 mr-2" />
+                                  {org.areas?.length || 0} Areas
+                                </Button>
+                              </CollapsibleTrigger>
+                              <CollapsibleContent className="mt-2">
+                                <ul className="space-y-2">
+                                  {org.areas?.map((area) => (
+                                    <li key={area.id} className="flex items-center text-sm text-muted-foreground">
+                                      <MapPin className="h-3 w-3 mr-2" />
+                                      {area.name}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </CollapsibleContent>
+                            </Collapsible>
+                          </TableCell>
                           <TableCell>{org.employees}</TableCell>
                           <TableCell>
                             <span

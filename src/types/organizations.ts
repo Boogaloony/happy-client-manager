@@ -7,6 +7,14 @@ export interface Organization {
   parentId?: number | null;
   isFolder?: boolean;
   serviceType?: string;
+  areas?: Area[];
+}
+
+export interface Area {
+  id: number;
+  name: string;
+  organizationId: number;
+  serviceType: string;
 }
 
 export interface OrganizationFolder {
@@ -20,4 +28,5 @@ export interface UserAccess {
   userId: number;
   organizationId: number;
   serviceTypes: string[];
+  areaIds?: number[]; // Areas the user has access to
 }
