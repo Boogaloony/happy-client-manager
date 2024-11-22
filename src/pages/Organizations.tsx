@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -9,7 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Plus, Folder, Wrench, Scissors, Tag } from "lucide-react";
+import { Plus, Folder, Wrench, Scissors } from "lucide-react";
 import { Organization } from "@/types/organizations";
 import {
   Accordion,
@@ -17,12 +16,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import { Badge } from "@/components/ui/badge";
 
 const mockOrganizations: Organization[] = [
   {
@@ -41,7 +34,6 @@ const mockOrganizations: Organization[] = [
     status: "active",
     parentId: 1,
     serviceType: "mowing",
-    tags: ["North Side", "CBD", "Eastern Suburbs"],
   },
   {
     id: 3,
@@ -51,7 +43,6 @@ const mockOrganizations: Organization[] = [
     status: "active",
     parentId: 1,
     serviceType: "handyman",
-    tags: ["Inner West", "Northern Beaches"],
   },
   {
     id: 4,
@@ -69,7 +60,6 @@ const mockOrganizations: Organization[] = [
     status: "active",
     parentId: 4,
     serviceType: "mowing",
-    tags: ["Local Area"],
   },
 ];
 
@@ -128,7 +118,6 @@ const Organizations = () => {
                       <TableRow>
                         <TableHead>Service</TableHead>
                         <TableHead>Type</TableHead>
-                        <TableHead>Tags</TableHead>
                         <TableHead>Team Members</TableHead>
                         <TableHead>Status</TableHead>
                       </TableRow>
@@ -143,25 +132,6 @@ const Organizations = () => {
                             </div>
                           </TableCell>
                           <TableCell>{org.serviceType}</TableCell>
-                          <TableCell>
-                            <Collapsible>
-                              <CollapsibleTrigger asChild>
-                                <Button variant="ghost" size="sm">
-                                  <Tag className="h-4 w-4 mr-2" />
-                                  {org.tags?.length || 0} Tags
-                                </Button>
-                              </CollapsibleTrigger>
-                              <CollapsibleContent className="mt-2">
-                                <div className="flex flex-wrap gap-2">
-                                  {org.tags?.map((tag) => (
-                                    <Badge key={tag} variant="secondary">
-                                      {tag}
-                                    </Badge>
-                                  ))}
-                                </div>
-                              </CollapsibleContent>
-                            </Collapsible>
-                          </TableCell>
                           <TableCell>{org.employees}</TableCell>
                           <TableCell>
                             <span

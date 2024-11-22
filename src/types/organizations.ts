@@ -7,7 +7,6 @@ export interface Organization {
   parentId?: number | null;
   isFolder?: boolean;
   serviceType?: string;
-  tags?: string[];
 }
 
 export interface OrganizationFolder {
@@ -22,4 +21,14 @@ export interface UserAccess {
   organizationId: number;
   serviceTypes: string[];
   tags?: string[]; // Tags the user has access to
+}
+
+export interface Job {
+  id: number;
+  organizationId: number;
+  serviceType: string;
+  scheduledDate: Date;
+  status: "pending" | "in-progress" | "completed";
+  tags: string[]; // Tags for grouping and access control
+  description?: string;
 }
