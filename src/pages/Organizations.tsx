@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -10,9 +11,8 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import { Organization } from "@/types/organizations";
 
-const mockOrganizations: Organization[] = [
+const mockOrganizations = [
   {
     id: 1,
     name: "Jim's Business",
@@ -28,7 +28,8 @@ const mockOrganizations: Organization[] = [
 ];
 
 const Organizations = () => {
-  const [organizations] = useState<Organization[]>(mockOrganizations);
+  const [organizations] = useState(mockOrganizations);
+  const navigate = useNavigate();
 
   return (
     <div className="container mx-auto p-6">
@@ -55,7 +56,11 @@ const Organizations = () => {
             </TableHeader>
             <TableBody>
               {organizations.map((org) => (
-                <TableRow key={org.id}>
+                <TableRow 
+                  key={org.id}
+                  className="cursor-pointer hover:bg-secondary"
+                  onClick={() => navigate(`/organizations/${org.id}`)}
+                >
                   <TableCell className="font-medium">{org.name}</TableCell>
                   <TableCell>{org.employees}</TableCell>
                   <TableCell>
