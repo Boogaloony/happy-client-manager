@@ -68,7 +68,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                     : "text-muted-foreground"
                 )}
               >
-                {item.icon}
+                <span className="flex-shrink-0">{item.icon}</span>
                 {isSidebarOpen && <span>{item.label}</span>}
               </Link>
             ))}
