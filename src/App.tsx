@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout";
 import Index from "./pages/Index";
 import Organizations from "./pages/Organizations";
 import Users from "./pages/Users";
@@ -18,14 +19,16 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/organizations" element={<Organizations />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/schedule" element={<Schedule />} />
-          <Route path="/quotes" element={<Quotes />} />
-          <Route path="/settings" element={<Settings />} />
-        </Routes>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/organizations" element={<Organizations />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/schedule" element={<Schedule />} />
+            <Route path="/quotes" element={<Quotes />} />
+            <Route path="/settings" element={<Settings />} />
+          </Routes>
+        </Layout>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
