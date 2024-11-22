@@ -8,6 +8,7 @@ import Organizations from "./pages/Organizations";
 import Users from "./pages/Users";
 import Schedule from "./pages/Schedule";
 import Quotes from "./pages/Quotes";
+import Settings from "./pages/Settings";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/users" element={<Users />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/quotes" element={<Quotes />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
