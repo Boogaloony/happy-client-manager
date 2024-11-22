@@ -9,8 +9,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Plus, Folder, Wrench, Scissors, MapPin } from "lucide-react";
-import { Organization, Area } from "@/types/organizations";
+import { Plus, Folder, Wrench, Scissors, Tag } from "lucide-react";
+import { Organization } from "@/types/organizations";
 import {
   Accordion,
   AccordionContent,
@@ -22,6 +22,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { Badge } from "@/components/ui/badge";
 
 const mockOrganizations: Organization[] = [
   {
@@ -40,11 +41,7 @@ const mockOrganizations: Organization[] = [
     status: "active",
     parentId: 1,
     serviceType: "mowing",
-    areas: [
-      { id: 1, name: "North Region", organizationId: 2, serviceType: "mowing" },
-      { id: 2, name: "South Region", organizationId: 2, serviceType: "mowing" },
-      { id: 3, name: "East Region", organizationId: 2, serviceType: "mowing" },
-    ],
+    tags: ["North Side", "CBD", "Eastern Suburbs"],
   },
   {
     id: 3,
@@ -54,10 +51,7 @@ const mockOrganizations: Organization[] = [
     status: "active",
     parentId: 1,
     serviceType: "handyman",
-    areas: [
-      { id: 4, name: "Central Region", organizationId: 3, serviceType: "handyman" },
-      { id: 5, name: "West Region", organizationId: 3, serviceType: "handyman" },
-    ],
+    tags: ["Inner West", "Northern Beaches"],
   },
   {
     id: 4,
@@ -75,9 +69,7 @@ const mockOrganizations: Organization[] = [
     status: "active",
     parentId: 4,
     serviceType: "mowing",
-    areas: [
-      { id: 6, name: "Local Area", organizationId: 5, serviceType: "mowing" },
-    ],
+    tags: ["Local Area"],
   },
 ];
 
@@ -136,7 +128,7 @@ const Organizations = () => {
                       <TableRow>
                         <TableHead>Service</TableHead>
                         <TableHead>Type</TableHead>
-                        <TableHead>Areas</TableHead>
+                        <TableHead>Tags</TableHead>
                         <TableHead>Team Members</TableHead>
                         <TableHead>Status</TableHead>
                       </TableRow>
@@ -155,19 +147,18 @@ const Organizations = () => {
                             <Collapsible>
                               <CollapsibleTrigger asChild>
                                 <Button variant="ghost" size="sm">
-                                  <MapPin className="h-4 w-4 mr-2" />
-                                  {org.areas?.length || 0} Areas
+                                  <Tag className="h-4 w-4 mr-2" />
+                                  {org.tags?.length || 0} Tags
                                 </Button>
                               </CollapsibleTrigger>
                               <CollapsibleContent className="mt-2">
-                                <ul className="space-y-2">
-                                  {org.areas?.map((area) => (
-                                    <li key={area.id} className="flex items-center text-sm text-muted-foreground">
-                                      <MapPin className="h-3 w-3 mr-2" />
-                                      {area.name}
-                                    </li>
+                                <div className="flex flex-wrap gap-2">
+                                  {org.tags?.map((tag) => (
+                                    <Badge key={tag} variant="secondary">
+                                      {tag}
+                                    </Badge>
                                   ))}
-                                </ul>
+                                </div>
                               </CollapsibleContent>
                             </Collapsible>
                           </TableCell>
