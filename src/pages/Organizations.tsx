@@ -11,21 +11,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-
-const mockOrganizations = [
-  {
-    id: 1,
-    name: "Jim's Business",
-    employees: 3,
-    status: "active",
-  },
-  {
-    id: 2,
-    name: "My Weekend Business",
-    employees: 1,
-    status: "active",
-  },
-];
+import { mockOrganizations } from "@/data/mockData";
 
 const Organizations = () => {
   const [organizations] = useState(mockOrganizations);
