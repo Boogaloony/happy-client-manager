@@ -60,7 +60,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 key={item.path}
                 to={item.path}
                 className={cn(
-                  "flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors",
+                  "flex items-center px-4 py-2 rounded-lg transition-colors",
+                  isSidebarOpen ? "space-x-2" : "justify-center",
                   "hover:bg-accent hover:text-accent-foreground",
                   location.pathname === item.path
                     ? "bg-accent text-accent-foreground"
