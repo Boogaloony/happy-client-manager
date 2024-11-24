@@ -66,3 +66,39 @@ export const countryFields = {
     { name: "vatNumber", label: "VAT Number", required: true }
   ]
 };
+
+export const mockUsers = [
+  {
+    id: 1,
+    name: "John Doe",
+    email: "john@example.com",
+    role: "admin",
+    status: "active",
+    organizationId: 1,
+    lastActive: new Date()
+  },
+  {
+    id: 2,
+    name: "Jane Smith",
+    email: "jane@example.com",
+    role: "manager",
+    status: "active",
+    organizationId: 1,
+    lastActive: new Date()
+  }
+];
+
+export const DEFAULT_ROLES = [
+  {
+    id: 1,
+    name: "Admin",
+    description: "Full system access",
+    permissions: ["users.create", "users.edit", "roles.manage", "roles.create", "roles.delete"]
+  },
+  {
+    id: 2,
+    name: "User",
+    description: "Standard user access",
+    permissions: ["users.view"]
+  }
+];
