@@ -17,6 +17,12 @@
  * - Tax fields are optional to support cash-only businesses
  * - Status fields use string literals for type safety
  * - All country-specific fields are nullable for flexibility
+ * 
+ * To Do Later:
+ * - Add address fields to Organization interface
+ * - Implement validation for tax numbers based on country format
+ * - Add support for multiple addresses (billing, shipping, etc.)
+ * - Include organization structure (parent/child relationships)
  */
 
 export interface Organization {

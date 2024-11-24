@@ -16,6 +16,13 @@
  *   * EU: VAT Number
  *   * Australia: ABN (Australian Business Number)
  *   * India: GSTIN (Goods and Services Tax Identification Number)
+ * 
+ * To Do Later:
+ * - Add more comprehensive mock data for testing
+ * - Include sample documents and user assignments
+ * - Add mock transaction history
+ * - Include sample audit logs
+ * - Add mock data for different organization structures
  */
 
 export const mockOrganizations = [
