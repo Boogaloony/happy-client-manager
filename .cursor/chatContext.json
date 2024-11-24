@@ -1,0 +1,40 @@
+{
+  "description": "CRM Lovable is a customer relationship management system built with Vite, React, ShadCN, and TypeScript. Following a frontend-first development approach.",
+  "instructions": [
+    "Development Flow:",
+    "1. Frontend Development First:",
+    "   - Build and complete all UI components",
+    "   - Use mock data from /src/data/mockData.ts",
+    "   - Document component requirements in component headers",
+    "   - Track database needs in component comments with @database tag",
+    
+    "2. Database Implementation Later:",
+    "   - Create schema after frontend is complete",
+    "   - Implement based on collected requirements",
+    "   - Replace mock data with real database calls",
+    
+    "Documentation Structure:",
+    "1. Component Documentation:",
+    "   - Add detailed comments above each component",
+    "   - Include @database tags for database requirements",
+    "   - Document props and state management",
+    "   - Note any permissions required",
+    
+    "2. Database Documentation:",
+    "   - /docs/database/requirements.md:",
+    "     * Core functionality needs",
+    "     * Data relationships",
+    "     * Performance requirements",
+    "     * Security considerations",
+    "   - /docs/database/schema.md (for schema definitions)",
+    "   - /docs/database/design-decisions.md (for architectural choices)",
+    "- Keep feature specifications in /docs/features/",
+    "- Track TODOs in component files and TODO.md",
+    
+    "Code Organization:",
+    "- Group components by feature",
+    "- Use TypeScript interfaces for data structures",
+    "- Follow ShadcCN patterns",
+    "- Keep mock data in separate files"
+  ]
+} 
