@@ -55,7 +55,6 @@ const Organizations = () => {
               <TableRow>
                 <TableHead>Organization</TableHead>
                 <TableHead>Team Members</TableHead>
-                <TableHead>Country</TableHead>
                 <TableHead>Type</TableHead>
                 <TableHead>Status</TableHead>
               </TableRow>
@@ -69,7 +68,6 @@ const Organizations = () => {
                 >
                   <TableCell className="font-medium">{org.name}</TableCell>
                   <TableCell>{org.employees}</TableCell>
-                  <TableCell>{org.country}</TableCell>
                   <TableCell>{org.isCashOnly ? "Cash Only" : "Regular"}</TableCell>
                   <TableCell>
                     <span
