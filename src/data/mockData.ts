@@ -1,3 +1,23 @@
+/**
+ * Mock Data Configuration
+ * 
+ * This file contains mock data for development and testing purposes.
+ * 
+ * mockOrganizations:
+ * - Represents sample organizations with different configurations
+ * - Includes examples of both cash-only and regular businesses
+ * - Contains country-specific tax identifiers (EIN, VAT, ABN, GSTIN)
+ * 
+ * countryFields:
+ * - Maps countries to their required tax identification fields
+ * - Used by OrganizationForm to dynamically render appropriate fields
+ * - Each country has specific tax number requirements:
+ *   * USA: EIN (Employer Identification Number)
+ *   * EU: VAT Number
+ *   * Australia: ABN (Australian Business Number)
+ *   * India: GSTIN (Goods and Services Tax Identification Number)
+ */
+
 export const mockOrganizations = [
   {
     id: 1,

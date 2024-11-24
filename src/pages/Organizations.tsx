@@ -21,6 +21,21 @@ import {
 } from "@/components/ui/dialog";
 import { OrganizationForm } from "@/components/OrganizationForm";
 
+/**
+ * Organizations Page
+ * 
+ * Main dashboard for managing organizations. This page:
+ * - Displays a list of all organizations in a table format
+ * - Provides ability to create new organizations via a modal form
+ * - Allows navigation to detailed view of each organization
+ * 
+ * Design Decisions:
+ * - Country information is stored but not displayed in the table to reduce clutter
+ * - Organizations can be marked as cash-only which affects tax requirements
+ * - Uses shadcn/ui components for consistent styling
+ * - Implements responsive design for various screen sizes
+ */
+
 const Organizations = () => {
   const [organizations] = useState(mockOrganizations);
   const navigate = useNavigate();

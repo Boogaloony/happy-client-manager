@@ -1,3 +1,18 @@
+/**
+ * OrganizationForm Component
+ * 
+ * This form handles the creation of new organizations with country-specific tax fields.
+ * The form dynamically shows different tax number fields (EIN, VAT, ABN, GSTIN) based on:
+ * 1. The selected country
+ * 2. Whether the organization is cash-only (tax fields hidden for cash-only businesses)
+ * 
+ * Key Features:
+ * - Uses react-hook-form for form state management
+ * - Implements zod for form validation
+ * - Dynamically renders country-specific tax fields
+ * - Integrates with shadcn/ui components
+ */
+
 import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
