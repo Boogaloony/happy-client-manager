@@ -15,27 +15,31 @@ import Settings from "./pages/Settings";
 
 const queryClient = new QueryClient();
 
+const AppContent = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/organizations" element={<Organizations />} />
+            <Route path="/organizations/:id" element={<OrganizationDetails />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/schedule" element={<Schedule />} />
+            <Route path="/quotes" element={<Quotes />} />
+            <Route path="/settings" element={<Settings />} />
+          </Routes>
+        </Layout>
+      </BrowserRouter>
+    </TooltipProvider>
+  </QueryClientProvider>
+);
+
 const App = () => (
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Layout>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/organizations" element={<Organizations />} />
-              <Route path="/organizations/:id" element={<OrganizationDetails />} />
-              <Route path="/users" element={<Users />} />
-              <Route path="/schedule" element={<Schedule />} />
-              <Route path="/quotes" element={<Quotes />} />
-              <Route path="/settings" element={<Settings />} />
-            </Routes>
-          </Layout>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
+    <AppContent />
   </StrictMode>
 );
 
