@@ -2,7 +2,14 @@ import { useCallback } from 'react';
 import { Permission } from '@/types/permissions';
 
 // This would typically come from your auth context/state management
-const mockUserPermissions = ['org.view', 'users.view', 'schedule.view', 'quotes.view'];
+const mockUserPermissions = [
+  'org.view', 
+  'users.view', 
+  'schedule.view', 
+  'quotes.view',
+  'accounting.view',
+  'admin'
+];
 
 export const usePermissions = () => {
   const hasPermission = useCallback((permissionId: string) => {

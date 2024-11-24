@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { mockOrganizations } from "@/data/mockData";
+import { PermissionGuard } from "@/components/PermissionGuard";
 
 /**
  * Organization Details Page
@@ -13,6 +14,7 @@ import { mockOrganizations } from "@/data/mockData";
  * - Shows organization details in a structured, tabbed layout
  * - Separates concerns into different tabs for better organization
  * - Displays tax information based on organization type
+ * - Implements permission-based access control for sensitive tabs
  * 
  * To Do Later:
  * - Implement full CRUD operations for organization management
@@ -37,9 +39,15 @@ const OrganizationDetails = () => {
       <Tabs defaultValue="details" className="w-full">
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="details">General Info</TabsTrigger>
-          <TabsTrigger value="users">Users</TabsTrigger>
-          <TabsTrigger value="accounting">Accounting</TabsTrigger>
-          <TabsTrigger value="documents">Documents</TabsTrigger>
+          <PermissionGuard permissions={['users.view']}>
+            <TabsTrigger value="users">Users</TabsTrigger>
+          </PermissionGuard>
+          <PermissionGuard permissions={['accounting.view']}>
+            <TabsTrigger value="accounting">Accounting</TabsTrigger>
+          </PermissionGuard>
+          <PermissionGuard permissions={['admin']}>
+            <TabsTrigger value="documents">Documents</TabsTrigger>
+          </PermissionGuard>
         </TabsList>
 
         <TabsContent value="details">
@@ -66,64 +74,70 @@ const OrganizationDetails = () => {
           </Card>
         </TabsContent>
 
-        <TabsContent value="users">
-          <Card>
-            <CardHeader>
-              <CardTitle>Users</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">User management coming soon...</p>
-            </CardContent>
-          </Card>
-        </TabsContent>
+        <PermissionGuard permissions={['users.view']}>
+          <TabsContent value="users">
+            <Card>
+              <CardHeader>
+                <CardTitle>Users</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">User management coming soon...</p>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </PermissionGuard>
 
-        <TabsContent value="accounting">
-          <Card>
-            <CardHeader>
-              <CardTitle>Accounting Information</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {!organization.isCashOnly && (
-                <div className="space-y-4">
-                  {organization.vatNumber && (
-                    <div>
-                      <span className="font-medium">VAT Number:</span> {organization.vatNumber}
-                    </div>
-                  )}
-                  {organization.abn && (
-                    <div>
-                      <span className="font-medium">ABN:</span> {organization.abn}
-                    </div>
-                  )}
-                  {organization.ein && (
-                    <div>
-                      <span className="font-medium">EIN:</span> {organization.ein}
-                    </div>
-                  )}
-                  {organization.gstin && (
-                    <div>
-                      <span className="font-medium">GSTIN:</span> {organization.gstin}
-                    </div>
-                  )}
-                </div>
-              )}
-              {organization.isCashOnly && (
-                <p className="text-muted-foreground">This is a cash-only business.</p>
-              )}
-            </CardContent>
-          </Card>
-        </TabsContent>
+        <PermissionGuard permissions={['accounting.view']}>
+          <TabsContent value="accounting">
+            <Card>
+              <CardHeader>
+                <CardTitle>Accounting Information</CardTitle>
+              </CardHeader>
+              <CardContent>
+                {!organization.isCashOnly && (
+                  <div className="space-y-4">
+                    {organization.vatNumber && (
+                      <div>
+                        <span className="font-medium">VAT Number:</span> {organization.vatNumber}
+                      </div>
+                    )}
+                    {organization.abn && (
+                      <div>
+                        <span className="font-medium">ABN:</span> {organization.abn}
+                      </div>
+                    )}
+                    {organization.ein && (
+                      <div>
+                        <span className="font-medium">EIN:</span> {organization.ein}
+                      </div>
+                    )}
+                    {organization.gstin && (
+                      <div>
+                        <span className="font-medium">GSTIN:</span> {organization.gstin}
+                      </div>
+                    )}
+                  </div>
+                )}
+                {organization.isCashOnly && (
+                  <p className="text-muted-foreground">This is a cash-only business.</p>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </PermissionGuard>
 
-        <TabsContent value="documents">
-          <Card>
-            <CardHeader>
-              <CardTitle>Documents</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">Document management coming soon...</p>
-            </CardContent>
-          </Card>
-        </TabsContent>
+        <PermissionGuard permissions={['admin']}>
+          <TabsContent value="documents">
+            <Card>
+              <CardHeader>
+                <CardTitle>Documents</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">Document management coming soon...</p>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </PermissionGuard>
       </Tabs>
     </div>
   );
