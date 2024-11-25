@@ -3,58 +3,86 @@ export type Permission = {
   name: string;
   description: string;
   category: 'organizations' | 'users' | 'schedule' | 'quotes' | 'customers';
+  allowMultiple?: boolean; // Whether multiple levels can be selected (e.g., view + edit + delete)
 };
 
 export type Role = {
   id: string;
   name: string;
   description: string;
-  permissions: string[]; // Array of permission IDs
+  organizationId: number;
+  isMaster?: boolean; // Indicates if this is the organization creator's role
+  permissions: {
+    permissionId: string;
+    level: 'view' | 'edit' | 'manage' | 'delete'; // Different levels of access
+  }[];
 };
 
 export const DEFAULT_PERMISSIONS: Permission[] = [
   // Organization permissions
-  { id: 'org.view', name: 'View Organizations', description: 'Can view organization details', category: 'organizations' },
-  { id: 'org.create', name: 'Create Organizations', description: 'Can create new organizations', category: 'organizations' },
-  { id: 'org.edit', name: 'Edit Organizations', description: 'Can edit organization details', category: 'organizations' },
-  { id: 'org.delete', name: 'Delete Organizations', description: 'Can delete organizations', category: 'organizations' },
-  
-  // User permissions
-  { id: 'users.view', name: 'View Users', description: 'Can view user details', category: 'users' },
-  { id: 'users.create', name: 'Create Users', description: 'Can create new users', category: 'users' },
-  { id: 'users.edit', name: 'Edit Users', description: 'Can edit user details', category: 'users' },
-  { id: 'users.delete', name: 'Delete Users', description: 'Can delete users', category: 'users' },
-  
-  // Schedule permissions
-  { id: 'schedule.view', name: 'View Schedule', description: 'Can view schedule', category: 'schedule' },
-  { id: 'schedule.create', name: 'Create Appointments', description: 'Can create appointments', category: 'schedule' },
-  { id: 'schedule.edit', name: 'Edit Appointments', description: 'Can edit appointments', category: 'schedule' },
-  { id: 'schedule.delete', name: 'Delete Appointments', description: 'Can delete appointments', category: 'schedule' },
-  
-  // Quote permissions
-  { id: 'quotes.view', name: 'View Quotes', description: 'Can view quotes', category: 'quotes' },
-  { id: 'quotes.create', name: 'Create Quotes', description: 'Can create quotes', category: 'quotes' },
-  { id: 'quotes.edit', name: 'Edit Quotes', description: 'Can edit quotes', category: 'quotes' },
-  { id: 'quotes.delete', name: 'Delete Quotes', description: 'Can delete quotes', category: 'quotes' }
+  { 
+    id: 'org.access', 
+    name: 'Organization Access', 
+    description: 'Access level for organization management', 
+    category: 'organizations',
+    allowMultiple: false // Only one level can be selected
+  },
+  { 
+    id: 'users.access', 
+    name: 'User Management', 
+    description: 'Access level for user management', 
+    category: 'users',
+    allowMultiple: true // Can have view + edit + delete permissions
+  },
+  { 
+    id: 'schedule.access', 
+    name: 'Schedule Management', 
+    description: 'Access level for schedule management', 
+    category: 'schedule',
+    allowMultiple: true
+  },
+  { 
+    id: 'quotes.access', 
+    name: 'Quote Management', 
+    description: 'Access level for quote management', 
+    category: 'quotes',
+    allowMultiple: true
+  }
 ];
 
-export const DEFAULT_ROLES: Role[] = [
+// Default role templates for new organizations
+export const DEFAULT_ROLE_TEMPLATES = [
   {
-    id: 'admin',
-    name: 'Administrator',
-    description: 'Full system access',
-    permissions: DEFAULT_PERMISSIONS.map(p => p.id)
+    name: "Master",
+    description: "Organization owner with full access",
+    permissions: DEFAULT_PERMISSIONS.map(p => ({
+      permissionId: p.id,
+      level: 'manage' as const
+    })),
+    isMaster: true
   },
   {
-    id: 'manager',
-    name: 'Manager',
-    description: 'Can manage most aspects except system settings',
-    permissions: DEFAULT_PERMISSIONS.filter(p => !p.id.includes('delete')).map(p => p.id)
+    name: "Admin",
+    description: "Full access except organization ownership",
+    permissions: DEFAULT_PERMISSIONS.map(p => ({
+      permissionId: p.id,
+      level: 'manage' as const
+    }))
   },
   {
-    id: 'staff',
-    name: 'Staff',
-    description: 'Basic access to view and create',
-    permissions: DEFAULT_PERMISSIONS.filter(p => p.id.includes('view') || p.id.includes('create')).map(p => p.id)
+    name: "Manager",
+    description: "Can manage most aspects except system settings",
+    permissions: DEFAULT_PERMISSIONS.map(p => ({
+      permissionId: p.id,
+      level: p.id.includes('org') ? 'view' : 'edit' as const
+    }))
+  },
+  {
+    name: "Staff",
+    description: "Basic access to view and create",
+    permissions: DEFAULT_PERMISSIONS.map(p => ({
+      permissionId: p.id,
+      level: 'view' as const
+    }))
   }
 ];
