@@ -51,90 +51,104 @@ export const mockUsers = [
     id: 1,
     name: "John Doe",
     email: "john@techsolutions.com",
-    role: "admin",
     status: "active",
-    organizationIds: [1],
+    organizationRoles: [
+      { organizationId: 1, role: "admin" },
+      { organizationId: 2, role: "user" }
+    ],
     lastActive: new Date()
   },
   {
     id: 2,
     name: "Jane Smith",
     email: "jane@techsolutions.com",
-    role: "manager",
     status: "active",
-    organizationIds: [1, 2],
+    organizationRoles: [
+      { organizationId: 1, role: "manager" },
+      { organizationId: 2, role: "manager" }
+    ],
     lastActive: new Date()
   },
   {
     id: 3,
     name: "Bob Wilson",
     email: "bob@digital.com",
-    role: "user",
     status: "active",
-    organizationIds: [2],
+    organizationRoles: [
+      { organizationId: 2, role: "admin" }
+    ],
     lastActive: new Date()
   },
   {
     id: 4,
     name: "Alice Johnson",
     email: "alice@techsolutions.com",
-    role: "manager",
     status: "active",
-    organizationIds: [1],
+    organizationRoles: [
+      { organizationId: 1, role: "manager" }
+    ],
     lastActive: new Date()
   },
   {
     id: 5,
     name: "Charlie Brown",
     email: "charlie@digital.com",
-    role: "admin",
     status: "active",
-    organizationIds: [2],
+    organizationRoles: [
+      { organizationId: 2, role: "admin" }
+    ],
     lastActive: new Date()
   },
   {
     id: 6,
     name: "Diana Prince",
     email: "diana@techsolutions.com",
-    role: "user",
     status: "active",
-    organizationIds: [1, 2],
+    organizationRoles: [
+      { organizationId: 1, role: "user" },
+      { organizationId: 2, role: "manager" }
+    ],
     lastActive: new Date()
   },
   {
     id: 7,
     name: "Edward Blake",
     email: "edward@digital.com",
-    role: "user",
     status: "active",
-    organizationIds: [2],
+    organizationRoles: [
+      { organizationId: 2, role: "user" }
+    ],
     lastActive: new Date()
   },
   {
     id: 8,
     name: "Frank Castle",
     email: "frank@techsolutions.com",
-    role: "manager",
     status: "active",
-    organizationIds: [1],
+    organizationRoles: [
+      { organizationId: 1, role: "manager" }
+    ],
     lastActive: new Date()
   },
   {
     id: 9,
     name: "Grace Lee",
     email: "grace@digital.com",
-    role: "user",
     status: "active",
-    organizationIds: [2],
+    organizationRoles: [
+      { organizationId: 2, role: "user" }
+    ],
     lastActive: new Date()
   },
   {
     id: 10,
     name: "Henry Ford",
     email: "henry@techsolutions.com",
-    role: "user",
     status: "active",
-    organizationIds: [1, 2],
+    organizationRoles: [
+      { organizationId: 1, role: "user" },
+      { organizationId: 2, role: "user" }
+    ],
     lastActive: new Date()
   }
 ];

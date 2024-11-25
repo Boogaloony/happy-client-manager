@@ -5,27 +5,31 @@
  * 
  * User Interface:
  * - Defines the structure of user data
- * - Includes role and permission associations
+ * - Includes role and permission associations per organization
  * - Tracks user status and activity
  * 
  * Design Considerations:
- * - Roles are string-based for simplicity
+ * - Roles are organization-specific
  * - Status uses string literals for type safety
- * - Organization relationship is required
+ * - Organization relationships include role information
  * 
  * Database Requirements:
- * - Users must be associated with organizations
- * - Role assignments need to be tracked
+ * - Users can have different roles per organization
+ * - Role assignments need to be tracked per organization
  * - Activity timestamps for audit purposes
  * - Status changes should be logged
  */
+
+export interface OrganizationRole {
+  organizationId: number;
+  role: string;
+}
 
 export interface User {
   id: number;
   name: string;
   email: string;
-  role: string;
   status: "active" | "inactive" | "pending";
-  organizationId: number;
+  organizationRoles: OrganizationRole[];
   lastActive?: Date;
-} 
+}
