@@ -51,7 +51,7 @@ export const mockUsers = [
     id: 1,
     name: "John Doe",
     email: "john@techsolutions.com",
-    status: "active",
+    status: "active" as const,
     organizationRoles: [
       { organizationId: 1, role: "admin" },
       { organizationId: 2, role: "user" }
@@ -62,7 +62,7 @@ export const mockUsers = [
     id: 2,
     name: "Jane Smith",
     email: "jane@techsolutions.com",
-    status: "active",
+    status: "active" as const,
     organizationRoles: [
       { organizationId: 1, role: "manager" },
       { organizationId: 2, role: "manager" }
@@ -73,7 +73,7 @@ export const mockUsers = [
     id: 3,
     name: "Bob Wilson",
     email: "bob@digital.com",
-    status: "active",
+    status: "active" as const,
     organizationRoles: [
       { organizationId: 2, role: "admin" }
     ],
@@ -83,7 +83,7 @@ export const mockUsers = [
     id: 4,
     name: "Alice Johnson",
     email: "alice@techsolutions.com",
-    status: "active",
+    status: "active" as const,
     organizationRoles: [
       { organizationId: 1, role: "manager" }
     ],
@@ -93,7 +93,7 @@ export const mockUsers = [
     id: 5,
     name: "Charlie Brown",
     email: "charlie@digital.com",
-    status: "active",
+    status: "active" as const,
     organizationRoles: [
       { organizationId: 2, role: "admin" }
     ],
@@ -103,7 +103,7 @@ export const mockUsers = [
     id: 6,
     name: "Diana Prince",
     email: "diana@techsolutions.com",
-    status: "active",
+    status: "active" as const,
     organizationRoles: [
       { organizationId: 1, role: "user" },
       { organizationId: 2, role: "manager" }
@@ -114,7 +114,7 @@ export const mockUsers = [
     id: 7,
     name: "Edward Blake",
     email: "edward@digital.com",
-    status: "active",
+    status: "active" as const,
     organizationRoles: [
       { organizationId: 2, role: "user" }
     ],
@@ -124,7 +124,7 @@ export const mockUsers = [
     id: 8,
     name: "Frank Castle",
     email: "frank@techsolutions.com",
-    status: "active",
+    status: "active" as const,
     organizationRoles: [
       { organizationId: 1, role: "manager" }
     ],
@@ -134,7 +134,7 @@ export const mockUsers = [
     id: 9,
     name: "Grace Lee",
     email: "grace@digital.com",
-    status: "active",
+    status: "active" as const,
     organizationRoles: [
       { organizationId: 2, role: "user" }
     ],
@@ -144,7 +144,7 @@ export const mockUsers = [
     id: 10,
     name: "Henry Ford",
     email: "henry@techsolutions.com",
-    status: "active",
+    status: "active" as const,
     organizationRoles: [
       { organizationId: 1, role: "user" },
       { organizationId: 2, role: "user" }
