@@ -24,7 +24,7 @@ export const UserForm: React.FC<UserFormProps> = ({ onSuccess }) => {
       id: mockUsers.length + 1,
       name: formData.get('name') as string,
       email: formData.get('email') as string,
-      status: 'active',
+      status: "active" as const,
       organizationRoles: mockOrganizations.map(org => ({
         organizationId: org.id,
         role: formData.get(`role-${org.id}`) as string || 'user'
