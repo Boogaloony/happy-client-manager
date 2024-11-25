@@ -19,14 +19,14 @@ export const UserForm: React.FC<UserFormProps> = ({ onSuccess }) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     
-    // Create new mock user
+    // Create new mock user with organizationIds array instead of single organizationId
     const newUser = {
       id: mockUsers.length + 1,
       name: formData.get('name') as string,
       email: formData.get('email') as string,
       role: formData.get('role') as string,
       status: 'active',
-      organizationId: 1,
+      organizationIds: [1], // Now using organizationIds array instead of single organizationId
       lastActive: new Date()
     };
 
@@ -66,4 +66,4 @@ export const UserForm: React.FC<UserFormProps> = ({ onSuccess }) => {
       <Button type="submit" className="w-full">Create User</Button>
     </form>
   );
-}; 
+};
