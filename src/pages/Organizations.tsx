@@ -20,6 +20,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { OrganizationForm } from "@/components/OrganizationForm";
+import { PermissionGuard } from "@/components/PermissionGuard";
 
 /**
  * Organizations Page
@@ -44,20 +45,22 @@ const Organizations = () => {
     <div className="container mx-auto p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-4xl font-bold">Organizations</h1>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button>
-              <Plus className="h-4 w-4 mr-2" />
-              New Organization
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[600px]">
-            <DialogHeader>
-              <DialogTitle>Create New Organization</DialogTitle>
-            </DialogHeader>
-            <OrganizationForm />
-          </DialogContent>
-        </Dialog>
+        <PermissionGuard permissions={['org.create']}>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button>
+                <Plus className="h-4 w-4 mr-2" />
+                New Organization
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[600px]">
+              <DialogHeader>
+                <DialogTitle>Create New Organization</DialogTitle>
+              </DialogHeader>
+              <OrganizationForm />
+            </DialogContent>
+          </Dialog>
+        </PermissionGuard>
       </div>
 
       <Card>
