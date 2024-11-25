@@ -2,34 +2,13 @@
  * Mock Data Configuration
  * 
  * This file contains mock data for development and testing purposes.
- * 
- * mockOrganizations:
- * - Represents sample organizations with different configurations
- * - Includes examples of both cash-only and regular businesses
- * - Contains country-specific tax identifiers (EIN, VAT, ABN, GSTIN)
- * 
- * countryFields:
- * - Maps countries to their required tax identification fields
- * - Used by OrganizationForm to dynamically render appropriate fields
- * - Each country has specific tax number requirements:
- *   * USA: EIN (Employer Identification Number)
- *   * EU: VAT Number
- *   * Australia: ABN (Australian Business Number)
- *   * India: GSTIN (Goods and Services Tax Identification Number)
- * 
- * To Do Later:
- * - Add more comprehensive mock data for testing
- * - Include sample documents and user assignments
- * - Add mock transaction history
- * - Include sample audit logs
- * - Add mock data for different organization structures
  */
 
 export const mockOrganizations = [
   {
     id: 1,
-    name: "Jim's Business",
-    employees: 3,
+    name: "Tech Solutions Inc",
+    employees: 7,
     status: "active",
     country: "USA",
     isCashOnly: false,
@@ -40,16 +19,16 @@ export const mockOrganizations = [
   },
   {
     id: 2,
-    name: "My Weekend Business",
-    employees: 1,
+    name: "Digital Services Co",
+    employees: 5,
     status: "active",
     country: "Australia",
-    isCashOnly: true,
+    isCashOnly: false,
     ein: null,
     vatNumber: null,
-    abn: null,
+    abn: "51824753556",
     gstin: null
-  },
+  }
 ];
 
 export const countryFields = {
@@ -71,19 +50,91 @@ export const mockUsers = [
   {
     id: 1,
     name: "John Doe",
-    email: "john@example.com",
+    email: "john@techsolutions.com",
     role: "admin",
     status: "active",
-    organizationId: 1,
+    organizationIds: [1],
     lastActive: new Date()
   },
   {
     id: 2,
     name: "Jane Smith",
-    email: "jane@example.com",
+    email: "jane@techsolutions.com",
     role: "manager",
     status: "active",
-    organizationId: 1,
+    organizationIds: [1, 2],
+    lastActive: new Date()
+  },
+  {
+    id: 3,
+    name: "Bob Wilson",
+    email: "bob@digital.com",
+    role: "user",
+    status: "active",
+    organizationIds: [2],
+    lastActive: new Date()
+  },
+  {
+    id: 4,
+    name: "Alice Johnson",
+    email: "alice@techsolutions.com",
+    role: "manager",
+    status: "active",
+    organizationIds: [1],
+    lastActive: new Date()
+  },
+  {
+    id: 5,
+    name: "Charlie Brown",
+    email: "charlie@digital.com",
+    role: "admin",
+    status: "active",
+    organizationIds: [2],
+    lastActive: new Date()
+  },
+  {
+    id: 6,
+    name: "Diana Prince",
+    email: "diana@techsolutions.com",
+    role: "user",
+    status: "active",
+    organizationIds: [1, 2],
+    lastActive: new Date()
+  },
+  {
+    id: 7,
+    name: "Edward Blake",
+    email: "edward@digital.com",
+    role: "user",
+    status: "active",
+    organizationIds: [2],
+    lastActive: new Date()
+  },
+  {
+    id: 8,
+    name: "Frank Castle",
+    email: "frank@techsolutions.com",
+    role: "manager",
+    status: "active",
+    organizationIds: [1],
+    lastActive: new Date()
+  },
+  {
+    id: 9,
+    name: "Grace Lee",
+    email: "grace@digital.com",
+    role: "user",
+    status: "active",
+    organizationIds: [2],
+    lastActive: new Date()
+  },
+  {
+    id: 10,
+    name: "Henry Ford",
+    email: "henry@techsolutions.com",
+    role: "user",
+    status: "active",
+    organizationIds: [1, 2],
     lastActive: new Date()
   }
 ];
@@ -97,6 +148,12 @@ export const DEFAULT_ROLES = [
   },
   {
     id: 2,
+    name: "Manager",
+    description: "Team and project management",
+    permissions: ["users.view", "users.edit", "schedule.manage"]
+  },
+  {
+    id: 3,
     name: "User",
     description: "Standard user access",
     permissions: ["users.view"]

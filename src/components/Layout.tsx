@@ -10,9 +10,18 @@ import {
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { DEFAULT_ROLES } from "@/data/mockData";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const [selectedRole, setSelectedRole] = useState("user");
   const location = useLocation();
 
   const navItems = [
@@ -41,11 +50,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       {/* Sidebar */}
       <aside
         className={cn(
-          "bg-secondary h-screen transition-all duration-300 ease-in-out",
+          "bg-secondary h-screen transition-all duration-300 ease-in-out flex flex-col",
           isSidebarOpen ? "w-64" : "w-16"
         )}
       >
-        <div className="p-4">
+        <div className="p-4 flex-1">
           <Button
             variant="ghost"
             size="icon"
@@ -74,6 +83,24 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             ))}
           </nav>
         </div>
+
+        {/* Role Selector */}
+        {isSidebarOpen && (
+          <div className="p-4 border-t border-secondary-foreground/10">
+            <Select value={selectedRole} onValueChange={setSelectedRole}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select role" />
+              </SelectTrigger>
+              <SelectContent>
+                {DEFAULT_ROLES.map((role) => (
+                  <SelectItem key={role.id} value={role.name.toLowerCase()}>
+                    {role.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
       </aside>
 
       {/* Main content */}
