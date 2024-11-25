@@ -19,7 +19,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { UserForm } from "@/components/UserForm.tsx";
+import { UserForm } from "@/components/UserForm";
 import { PermissionGuard } from "@/components/PermissionGuard";
 import {
   Tabs,
@@ -27,49 +27,14 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
-
-/**
- * Users/Teams Page
- * 
- * @component
- * Main dashboard for managing team members.
- * 
- * @description
- * - Displays a list of all users in a table format
- * - Provides ability to create new users via a modal form
- * - Allows navigation to detailed view of each user
- * - Implements role-based access control
- * 
- * @database
- * Table: Users
- * - id: Primary key
- * - name: string (required)
- * - email: string (unique, required)
- * - role: string (references Roles table)
- * - status: enum ('active', 'inactive', 'pending')
- * - organizationId: foreign key (Organizations)
- * - lastActive: timestamp
- * - createdAt: timestamp
- * - updatedAt: timestamp
- * 
- * Indexes:
- * - email (unique)
- * - organizationId, status (compound)
- * 
- * Relationships:
- * - belongsTo Organization
- * - hasOne Role
- * - hasMany Permissions through Role
- * 
- * Audit Requirements:
- * - Track status changes
- * - Log role assignments
- * - Record last active timestamp
- */
+import { TeamMemberRow } from "@/components/TeamMemberRow";
+import { UserDetailsDialog } from "@/components/UserDetailsDialog";
+import { User } from "@/types/users";
 
 const Users = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<typeof mockUsers[0] | null>(null);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const currentOrganizationId = 1; // This would typically come from a context or state
 
   return (
     <div className="container mx-auto p-6">
@@ -119,59 +84,12 @@ const Users = () => {
                 </TableHeader>
                 <TableBody>
                   {mockUsers.map((user) => (
-                    <TableRow 
-                      key={user.id} 
-                      className="cursor-pointer"
-                      onClick={() => setSelectedUser(user)}
-                    >
-                      <TableCell className="font-medium">
-                        {user.name}
-                      </TableCell>
-                      <TableCell>
-                        <a 
-                          href={`mailto:${user.email}`}
-                          onClick={(e) => e.stopPropagation()}
-                          className="text-blue-600 hover:underline"
-                        >
-                          {user.email}
-                        </a>
-                      </TableCell>
-                      <TableCell>
-                        <PermissionGuard 
-                          permissions={['roles.view']}
-                          fallback={<span>{user.role}</span>}
-                        >
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              // Add your role details logic here
-                            }}
-                            className="hover:underline"
-                          >
-                            {user.role}
-                          </button>
-                        </PermissionGuard>
-                      </TableCell>
-                      <TableCell>
-                        <PermissionGuard 
-                          permissions={['users.edit']}
-                          fallback={<span>{user.status}</span>}
-                        >
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              // Add your status change logic here
-                            }}
-                            className="hover:underline"
-                          >
-                            {user.status}
-                          </button>
-                        </PermissionGuard>
-                      </TableCell>
-                      <TableCell>
-                        {/* Remove the existing button since the whole row is clickable */}
-                      </TableCell>
-                    </TableRow>
+                    <TeamMemberRow
+                      key={user.id}
+                      user={user}
+                      onSelect={setSelectedUser}
+                      currentOrganizationId={currentOrganizationId}
+                    />
                   ))}
                 </TableBody>
               </Table>
@@ -221,29 +139,11 @@ const Users = () => {
         </TabsContent>
       </Tabs>
 
-      <Dialog open={!!selectedUser} onOpenChange={() => setSelectedUser(null)}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>User Details</DialogTitle>
-          </DialogHeader>
-          {selectedUser && (
-            <div className="space-y-4">
-              <div>
-                <span className="font-medium">Name:</span> {selectedUser.name}
-              </div>
-              <div>
-                <span className="font-medium">Email:</span> {selectedUser.email}
-              </div>
-              <div>
-                <span className="font-medium">Role:</span> {selectedUser.role}
-              </div>
-              <div>
-                <span className="font-medium">Status:</span> {selectedUser.status}
-              </div>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
+      <UserDetailsDialog
+        user={selectedUser}
+        onOpenChange={() => setSelectedUser(null)}
+        currentOrganizationId={currentOrganizationId}
+      />
     </div>
   );
 };
